@@ -3,7 +3,7 @@ import java.util.List;
 public class Client {
 
 	private String id;
-	private Point coord;
+	private Point coordonnées;
 	private double demande;
 	private int[] fenetreLivraison; 
 	private double penalite;
@@ -20,6 +20,31 @@ public class Client {
 		this.marchandiseJourLivree= new double[7];
 		this.etat=false;
 	}
+	
+	public String getIdclient() {
+		return id;
+	}
+
+	public Point getCoordonnées() {
+		return coordonnées;
+	}
+	
+	public int[] getFenetreLivraison() {
+		return fenetreLivraison;
+	}
+	
+	public double getPenalite() {
+		return penalite;
+	}
+	
+	public double[] getMarchandiseJourLivree() {
+		return marchandiseJourLivree;
+	}
+	
+	public boolean getEtat() {
+		return etat;
+	}
+	
 	
 	
 
