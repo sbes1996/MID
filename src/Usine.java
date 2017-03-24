@@ -1,27 +1,26 @@
+public class Client {
 
-public class Usine {
-
-	
 	private String id;
-	private double capaciteProd;
-	private double capaciteStock;
-	private double coutProd;
-	private double coutStock;
-	private double stock;
-	private double production;
 	private Point coord;
+	private double demande;
+	private int[] fenetreLivraison; 
+	private double penalite;
+	private double[] marchandiseJourLivree; 
+	private boolean etat;
 	
-	
-	public Usine(String id,double capaProd, double capaStock, double coutStock, double coutProd, Point coord  ){
+	public Client( String id, Point coord, double demande, double penalite, int d1, int d2){
 		this.id=id;
-		this.capaciteProd=capaProd;
-		this.capaciteStock=capaStock;
-		this.coutStock=coutStock;
-		this.coutProd=coutProd;
 		this.coord=coord;
-		this.production=0;
-		this.stock=0;
-		
-		}
+		this.demande=demande;
+		this.fenetreLivraison=new int[2];
+		this.fenetreLivraison[0]= d1;
+		this.fenetreLivraison[1]= d2;
+		this.marchandiseJourLivree= new double[7];
+		this.etat=false;
+	}
+	
+	
+
+
 	
 }
