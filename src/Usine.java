@@ -3,27 +3,75 @@ public class Usine {
 
 	
 	private String id;
-	private double capaciteProd;
-	private double capaciteStock;
-	private double coutProd;
-	private double coutStock;
-	private double stock;
-	private double production;
+	private double[] capaciteProd;
+	private double[] capaciteStock;
+	private double[] coutProd;
+	private double[] coutStock;
+	private double[] stock;
+	private double[] production;
 	private Point coord;
 	
 	
-	public Usine(String id,double capaProd, double capaStock, double coutStock, double coutProd, Point coord, double stock){
+	public Usine(String id,double[] capaProd, double[] capaStock, double[] coutStock, double[] coutProd, Point coord){
 		this.id=id;
-		this.capaciteProd=capaProd;
-		this.capaciteStock=capaStock;
-		this.coutStock=coutStock;
-		this.coutProd=coutProd;
 		this.coord=coord;
-		this.production=0;
-		this.stock=stock;
+		this.capaciteProd=new double[7];
+		this.capaciteStock=new double[7];
+		this.coutStock=new double[7];
+		this.coutProd=new double[7];
+		this.stock= new double[7];
+		this.production=new double[7];
+		for (int i=0; i<7; i++){
+			this.capaciteProd[i]=capaProd[i];
+			this.capaciteStock[i]=capaStock[i];
+			this.coutStock[i]= coutStock[i];
+			this.coutProd[i]= coutProd[i];
+			this.production[i]=0;
+			this.stock[i]=0;
 		}
+	}
+		
+		
+	public Point getCoord(){
+		return this.coord;
+	}
 	
-
+	public void setProd(int prod, int jour){
+		if( this.capaciteProd[jour]>= prod)
+		this.production[jour]= prod;
+		
+	}
+	
+	public void setStock(int stock, int jour){
+		if( this.capaciteStock[jour]>= stock)
+		this.production[jour]= stock;
+		
+	}
+	
+	public double getCapaciteProd(int j){
+		return this.capaciteProd[j];
+	}
+	
+	 public double getCapaciteProdTotale(){
+		 double capa=0;
+		 for(int i=0; i<7; i++){
+			 capa=capa+ getCapaciteProd(i);
+		 }
+		 return capa;
+	 }
+	
+	public double getCapaciteStock(int j){
+		return this.capaciteStock[j];
+	}
+		
+	public double getCapaciteStockTotale(){
+		double capa=0;
+		for( int i =0; i<7; i++){
+			capa= capa+ getCapaciteStock(i);
+		}
+		return capa;
+	}
+		
 	
 	
 	
