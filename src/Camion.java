@@ -6,32 +6,36 @@ public class Camion {
 	private double capacite;
 	private double vitesse;
 	private double coutTransportkm;
-	private double heuresJour;
+	private double[] heuresJour;
 	private double capaciteUtilisee;
 	private double heuresUtilisees;
 	private double cout;
 	private Usine usine; // pas sur
 	private Point coord; // pas sur
 	
-	public Camion(String id, String idusine, double capacite, double vitesse, double coutTransport, double heuresJour, Usine usine){
+	public Camion(String id, String idusine, double capacite, double vitesse, double coutTransport, double[] heuresJour, Usine usine){
 		this.idUsine=idusine;
 		this.capacite=capacite;
 		this.vitesse=vitesse;
 		this.coutTransportkm=coutTransport;
-		this.heuresJour=heuresJour;
 		this.capaciteUtilisee=0;
 		this.heuresUtilisees=0;
 		this.cout=0;
 		this.usine=usine;
 		this.coord= this.usine.getCoord();
+		this.heuresJour= new double[7];
+		this.heuresJour=heuresJour;
+		for( int i=0; i<7; i++){
+			this.heuresJour[i]=heuresJour[i];
+		}
 	}
 	
 	
 	
 	public void addHeures( double heures){
-		if(this.heuresUtilisees + heures <= this.heuresJour){
+		//if(this.heuresUtilisees + heures <= this.heuresJour){
 			this.heuresUtilisees= this.heuresUtilisees + heures;
-		}
+		
 	}
 	
 	
@@ -59,34 +63,37 @@ public class Camion {
 	}
 	
 	
-	public double distUsine(){
-		return this.coord.distance(this.usine.getCoord());
+	
+	public void jourSuivant(){
+		this.cout=0;
+		this.heuresUtilisees=0;
 	}
-	// je crois que cette methode est inutile
 	
 	
-	public boolean peutDelivrer(Point p, double demande){
-		if( this.heuresUtilisees + getTempsTraject(this.coord, p)< this.heuresJour && this.capaciteUtilisee >=  demande && demande <= this.capacite){
-			return true;
-		}
-		return false;
+	public void delivre(Client c, double quantite){
+		this.cout= this.cout + getCoutTraject(this.coord, c.getCoordonnees());
+		setCoord(c.getCoordonnees());
+		this.capaciteUtilisee=this.capaciteUtilisee-quantite;
+		
 	}
-	// pas sur de cette methode
 	
 	
-	public boolean peutRetourner(Point p){
-		if (getTempsTraject(this.coord, p) + getTempsTraject(p, this.usine.getCoord()) + this.heuresUtilisees   < this.heuresJour){
+	
+	public boolean peutRetourner(Client c, int jour){
+		if (getTempsTraject(this.coord, c.getCoordonnees()) + getTempsTraject(c.getCoordonnees(), this.usine.getCoord()) + this.heuresUtilisees   < this.heuresJour[jour]){
 			return true;
 		}
 		return false;
 		
 	}
-	// on veut savoir si une fois s'avoir déplacé au point p on aura le temps de revenir
+	// on veut savoir si une fois s'etre déplacé au point p on aura le temps de revenir
 	
 	
 	
 	
 	
 }
+
+
 
 
