@@ -1,3 +1,4 @@
+import java.util.LinkedList;
 
 public class Usine {
 
@@ -10,7 +11,7 @@ public class Usine {
 	private double[] stock;
 	private double[] production;
 	private Point coord;
-	
+	private LinkedList<Client> clients;
 	
 	public Usine(String id,double[] capaProd, double[] capaStock, double[] coutStock, double[] coutProd, Point coord){
 		this.id=id;
@@ -29,6 +30,8 @@ public class Usine {
 			this.production[i]=0;
 			this.stock[i]=0;
 		}
+		
+		this.clients= new LinkedList<Client>();
 	}
 		
 		
@@ -73,9 +76,13 @@ public class Usine {
 	}
 		
 	
+	public void addClient( Client c){
+		this.clients.add(c);
+	}
 	
-	
-	
+	public LinkedList getClients(){
+		return this.clients;
+	}
 	
 	
 }
