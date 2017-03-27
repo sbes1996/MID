@@ -11,7 +11,7 @@ public class Client {
 	private boolean etat;
 	private Usine usine;
 	
-	public Client( String id, Point coord, double demande, double penalite, int d1, int d2){
+	public Client( String id, Point coord, double demande, double penalite, int d1, int d2, Usine usine){
 		this.id=id;
 		this.coord=coord;
 		this.demande=demande;
@@ -20,6 +20,20 @@ public class Client {
 		this.fenetreLivraison[1]= d2;
 		this.marchandiseJourLivree= new double[7];
 		this.etat=false;
+		this.usine=usine;
+	}
+	
+	
+	
+	public double getDemandeRestante( int j){
+		double demandeRest= this.demande;
+		for(int i=0; i<j; i++){
+			demandeRest= demandeRest-this.marchandiseJourLivree[j];
+		}
+		return demandeRest;
+		
+		
+		
 	}
 	
 	public String getIdclient() {
