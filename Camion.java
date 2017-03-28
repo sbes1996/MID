@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 
 public class Camion {
-	private String id;
+	private int dureeExp;
 	private String idUsine;
 	private double capacite;
 	private double vitesse;
@@ -13,7 +13,7 @@ public class Camion {
 	private Usine usine; // pas sur
 	private Point coord; // pas sur
 	
-	public Camion(String id, String idusine, double capacite, double vitesse, double coutTransport, double[] heuresJour, Usine usine){
+	public Camion(String id, String idusine, double capacite, double vitesse, double coutTransport, double[] heuresJour, Usine usine, int duree){
 		this.idUsine=idusine;
 		this.capacite=capacite;
 		this.vitesse=vitesse;
@@ -23,7 +23,8 @@ public class Camion {
 		this.cout=0;
 		this.usine=usine;
 		this.coord= this.usine.getCoord();
-		this.heuresJour= new double[7];
+		this.dureeExp=duree;
+		this.heuresJour= new double[dureeExp];
 		this.heuresJour=heuresJour;
 		for( int i=0; i<7; i++){
 			this.heuresJour[i]=heuresJour[i];
