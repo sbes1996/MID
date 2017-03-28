@@ -1,62 +1,104 @@
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.List;
 
-public class livraison {
-	private LinkedList<Usine> usines;
-	private Prestataire p;
-	private LinkedList<Camion> listeDeCamions;
-	private double cout;
+public class Client {
+
+	private String id;
+	private int dureeExp;
+	private Point coord;
+	private double demande;
+	private int[] fenetreLivraison; 
+	private double penalite;
+	private double[]marchandiseJourLivree; 
+	private boolean etat;
+	private Usine usine;
 	
-
-public livraison(LinkedList<Usine> usines, Prestataire p){
-	this.usines = usines;
-	this.p=p;
-	this.cout=0;
+	public Client( String id, Point coord, double demande, double penalite, int d1, int d2, int duree){
+		this.id=id;
+		this.dureeExp=duree;
+		this.coord=coord;
+		this.demande=demande;
+		this.fenetreLivraison=new int[2];
+		this.fenetreLivraison[0]= d1;
+		this.fenetreLivraison[1]= d2;
+		this.marchandiseJourLivree= new double[dureeExp];
+		this.etat=false;
+		this.usine=null;
+	}
 	
-}
-public void affectationCamions(){
 	
-}
-
-
-public void resolutionLivraison(){
-	for (int j=0; j<7;j++){
-		Iterator<Usine> iter= this.usines.iterator();
-		while (iter.hasNext()){
-			Usine u=iter.next();
-			livraisonUsine lu = new livraisonUsine(u,p,j);
-			lu.livraisonprodUsine();
-			cout+=lu.getCout();
-			Iterator<Camion> iter1= u.getCamions().iterator();
-			while(iter1.hasNext()){
-				Camion c = iter1.next();
-				c.jourSuivant();
-			}
-			
-			
+	
+	public double getDemandeRestante( int j){
+		double demandeRest= this.demande;
+		for(int i=0; i<j; i++){
+			demandeRest= demandeRest-this.marchandiseJourLivree[j];
 		}
-		cout+=p.getCoutFinal(j);
-		p.jourSuivant();
+		return demandeRest;
+		
+		
+		
 	}
-	cout +=this.coutPenalite();
-
+	public void setMarchandise(int j, double q){
+		this.marchandiseJourLivree[j]+=q;
 	}
-
-public double getCoutLogistique(){
-	return this.cout;
-}
-
-public double coutPenalite() {
-	Iterator<Usine> iter = this.usines.iterator();
-	Usine usine = iter.next();
-	double coutPenalite=0;
-	while(iter.hasNext()){
-		Iterator<Client> iter1= usine.getClients().iterator();
-		Client client = iter1.next();
-		coutPenalite+=client.coutPenalite();
-
-	}
-	return coutPenalite;
 	
+	public String getIdclient() {
+		return this.id;
+	}
+
+	public Point getCoordonnees() {
+		return this.coord;
+	}
+	
+	public double getDemande() {
+		return this.demande;
+	}
+	
+	
+	public double getPenalite() {
+		return this.penalite;
+	}
+	
+	
+
+	public boolean getEtat() {
+		return this.etat;
+	}
+	
+	public void changeEtat() {
+		if (getEtat()) {
+			this.etat=false;
+		}
+	}
+	
+	public boolean estPenalite(int jourlivrer) {
+		if((jourlivrer < this.fenetreLivraison[0]) || (jourlivrer > this.fenetreLivraison[1])){
+			return true;
+		} else {
+		return false;	
+		}
+	}
+
+	public double coutPenalite() {
+		double qteTotale=0;
+		double qtePasFenetre=0;
+		for( int i =0; i<this.marchandiseJourLivree.length; i++){
+			if (estPenalite(i)){
+				qtePasFenetre = qtePasFenetre + this.marchandiseJourLivree[i];
+			}
+			qteTotale= qteTotale + this.marchandiseJourLivree[i];
+		}
+		return ( this.penalite*qtePasFenetre/qteTotale);
+	}
+	
+
+public Point getCoord(){
+	return this.coord;
+}
+public double getMarchandisesPrest(double quantite,int j){
+	if (quantite<=this.getDemandeRestante(j)){
+		return quantite;
+	}else{
+		return this.getDemandeRestante(j);
+	}
 }
 }
