@@ -6,6 +6,7 @@ public class livraisonUsine {
 	private Prestataire prestExt;
 	private int j;
 	private double cout;
+	private LinkedList<Camion> listeCamions;
 
 	
 public livraisonUsine(Usine u, Prestataire prest ,int j){
@@ -78,7 +79,7 @@ public void livraisonCam(Camion c, LinkedList<Client> clients){
 }
 
 
-public void clientDelivre(LinkedList<Client> listeClients,Client c){//enlÃƒÂ¨ve le client de notre liste ÃƒÂ  livrer
+public void clientDelivre(LinkedList<Client> listeClients,Client c){//enlÃƒÂ¨ve le client de notre liste ÃƒÂ  livrer
 	Iterator<Client> iter = listeClients.iterator();
 	int i=0;
 	while (iter.hasNext()){
