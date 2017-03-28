@@ -2,8 +2,8 @@ import java.util.LinkedList;
 
 public class Usine {
 
-	
 	private String id;
+	private int dureeExp;
 	private double[] capaciteProd;
 	private double[] capaciteStock;
 	private double[] coutProd;
@@ -12,16 +12,21 @@ public class Usine {
 	private double[] production;
 	private Point coord;
 	private LinkedList<Client> clients;
+	private LinkedList<Camion> flotteCamion;
+	private double[] quantiteALivrer;
 	
-	public Usine(String id,double[] capaProd, double[] capaStock, double[] coutStock, double[] coutProd, Point coord){
+	
+	
+	public Usine(String id,double[] capaProd, double[] capaStock, double[] coutStock, double[] coutProd, Point coord, int duree){
 		this.id=id;
+		this.dureeExp=duree;
 		this.coord=coord;
-		this.capaciteProd=new double[7];
-		this.capaciteStock=new double[7];
-		this.coutStock=new double[7];
-		this.coutProd=new double[7];
-		this.stock= new double[7];
-		this.production=new double[7];
+		this.capaciteProd=new double[dureeExp];
+		this.capaciteStock=new double[dureeExp];
+		this.coutStock=new double[dureeExp];
+		this.coutProd=new double[dureeExp];
+		this.stock= new double[dureeExp];
+		this.production=new double[dureeExp];
 		for (int i=0; i<7; i++){
 			this.capaciteProd[i]=capaProd[i];
 			this.capaciteStock[i]=capaStock[i];
@@ -31,9 +36,29 @@ public class Usine {
 			this.stock[i]=0;
 		}
 		
-		this.clients= new LinkedList<Client>();
+		this.flotteCamion=null ;
+		this.clients=clients;
+		this.quantiteALivrer= new double[dureeExp];
+		for( int i=0; i<dureeExp-1; i++){
+			this.quantiteALivrer[i]= this.production[i]+this.stock[i]-this.stock[i+1];
+		}
+		this.quantiteALivrer[dureeExp-1]= this.production[dureeExp-1]+this.stock[dureeExp-1];
 	}
 		
+
+	public LinkedList<Client> getClients(){
+		return this.clients;
+	}
+	
+	public LinkedList<Camion> getCamions(){
+		return this.flotteCamion;
+	}
+	
+	public double getQuantiteALivrer( int j){
+		return this.quantiteALivrer[j];
+	}
+
+	
 		
 	public Point getCoord(){
 		return this.coord;
@@ -80,16 +105,20 @@ public class Usine {
 		this.clients.add(c);
 	}
 	
-	public LinkedList getClients(){
-		return this.clients;
+	public void addCamion( Camion c){
+		this.flotteCamion.add(c);
 	}
 	
 	public double getStock (int j){
 		return this.stock[j];
 	}
 	
-public double getProd(int j){
-	return this.production[j];
+	public double getProd(int j){
+		return this.production[j];
 	
 }
+	public void ajouterCamion(Camion c){
+		this.flotteCamion
+	}
+
 }
