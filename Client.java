@@ -100,4 +100,3 @@ public double getMarchandisesPrest(double quantite,int j){
 	}
 }
 	
-}
