@@ -5,7 +5,7 @@ public class Prestataire {
 	private double distanceUtilise;
 	private double distance;
 	private double couts;
-	private boolean etat;
+	
 	
 	
 	
@@ -14,9 +14,13 @@ public class Prestataire {
 		this.coutTransport=coutTransport;
 		this.distanceUtilise=0;
 		this.couts=0;
-		this.etat=false;
+		
 	}
 	
+	
+	public double getCout(){
+		return this.couts;
+	}
 	public void addCout(double cout){
 		this.couts=this.couts + cout;
 	}
@@ -42,6 +46,13 @@ public class Prestataire {
 		client.setMarchandise(j, quantite);
 		
 	}
+	
+	
+	public void jourSuivant(){
+		this.couts=0;
+		this.distanceUtilise=0;
+	}
+	
 }
 
 
