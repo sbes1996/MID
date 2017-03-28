@@ -37,12 +37,16 @@ public class Camion {
 		
 	}
 	
-	
+
 	public void addCapacite( double capa){
 		if( this.capaciteUtilisee + capa< this.capacite){
 			this.capaciteUtilisee= this.capaciteUtilisee + capa;
+		} elsif( this.capaciteUtilisee+capa>= this.capacite){
+			this.capaciteUtilisee=this.capacite;
 		}
 	}
+	
+	
 	public double getCapaUtilisee(){
 		return this.capaciteUtilisee;
 	}
