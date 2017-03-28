@@ -3,24 +3,26 @@ import java.util.List;
 public class Client {
 
 	private String id;
+	private int dureeExp;
 	private Point coord;
 	private double demande;
 	private int[] fenetreLivraison; 
 	private double penalite;
-	private double[] marchandiseJourLivree; 
+	private double[]marchandiseJourLivree; 
 	private boolean etat;
 	private Usine usine;
 	
-	public Client( String id, Point coord, double demande, double penalite, int d1, int d2, Usine usine){
+	public Client( String id, Point coord, double demande, double penalite, int d1, int d2, int duree){
 		this.id=id;
+		this.dureeExp=duree;
 		this.coord=coord;
 		this.demande=demande;
 		this.fenetreLivraison=new int[2];
 		this.fenetreLivraison[0]= d1;
 		this.fenetreLivraison[1]= d2;
-		this.marchandiseJourLivree= new double[7];
+		this.marchandiseJourLivree= new double[dureeExp];
 		this.etat=false;
-		this.usine=usine;
+		this.usine=null;
 	}
 	
 	
@@ -99,4 +101,4 @@ public double getMarchandisesPrest(double quantite,int j){
 		return this.getDemandeRestante(j);
 	}
 }
-	
+}
