@@ -3,46 +3,17 @@ import java.util.LinkedList;
 
 public class livraisonUsine {
 	private Usine usine;
-	private LinkedList<Camion> flotteCamion;
 	private Prestataire prestExt;
 	private int j;
-	//private Probleme pb (jour j);
-	private double quantiteALivrer;
+
 	
-public livraisonUsine(Usine u,LinkedList<Camion> c, Prestataire prest,double quantite ,int j){
+public livraisonUsine(Usine u, Prestataire prest ,int j){
 	this.usine=u;
-	this.flotteCamion=c;
 	this.prestExt=prest;
-	this.j=j;//jour j
-	this.quantiteALivrer=quantite;
+	this.j=j;
 }
 
 
-public double getMarchandiseALivrer(int j ){           //pb!!!
-		return this.usine.getStock(j)+usine.getProd(j)-usine.getStock(j+1);
-}
-
-public LinkedList<Client> clientsALivrer(){
-	return usine.getClients();
-}
-
-
-		
-
-
-
-	
-	
-}
-public void livraisonPrest(Prestataire p, LinkedList clients, double quantite){
-	Iterator<Client> iter = clients.iterator();
-	while(iter.hasNext() && quantite>=0){
-		Client c = iter.next();
-		p.prestDelivre(c,usine, c.getMarchandisesPrest(quantite,j),j);
-		quantite=quantite-c.getMarchandisesPrest(quantite,j);
-	}
-	}
-	
 
 
 public Client lePlusProche(Camion camion, LinkedList<Client> clients){
@@ -64,6 +35,20 @@ public Client lePlusProche(Camion camion, LinkedList<Client> clients){
 }
 
 
+
+public void livraisonPrest(Prestataire p, LinkedList<Client> clients, double quantite){
+	Iterator<Client> iter = clients.iterator();
+	while(iter.hasNext() && quantite>=0){
+		Client c = iter.next();
+		p.prestDelivre(c,usine, c.getMarchandisesPrest(quantite,j),j);
+		quantite=quantite-c.getMarchandisesPrest(quantite,j);
+	}
+	}
+	
+
+
+
+
 public double getMarchandises(Camion c, Client cust){
 	if (c.getCapaUtilisee()<= cust.getDemandeRestante(this.j)){
 		return c.getCapaUtilisee();
@@ -74,12 +59,6 @@ public double getMarchandises(Camion c, Client cust){
 
 
 
-
-
-
-
-
-//methode camion modifiee
 
 
 
@@ -111,9 +90,9 @@ public void clientDelivre(LinkedList<Client> listeClients,Client c){//enlÃƒÂ�
 
 public void livraisonprodUsine(){
 	
-	Iterator<Camion> iter= this.flotteCamion.iterator();
+	Iterator<Camion> iter= this.usine.getCamions().iterator();
 	LinkedList<Client> clients= this.usine.getClients();
-	double quantitePrestataire=this.quantiteALivrer;
+	double quantitePrestataire=this.usine.getQuantiteALivrer(this.j);
 	
 	while(iter.hasNext() && quantitePrestataire>=0){
 		Camion c= iter.next();
@@ -121,7 +100,7 @@ public void livraisonprodUsine(){
 		quantitePrestataire= quantitePrestataire - c.getCapaUtilisee();
 	}
 
-	Iterator<Camion> iter2= this.flotteCamion.iterator(); //pas sur
+	Iterator<Camion> iter2= this.usine.getCamions().iterator(); 
 	while (iter2.hasNext()){
 		Camion c = iter2.next();
 		if( c.getCapaUtilisee()>0){
