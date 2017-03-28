@@ -33,6 +33,7 @@ public class Camion {
 
 	
 	
+	
 	public void addHeures( double heures){
 		//if(this.heuresUtilisees + heures <= this.heuresJour){
 			this.heuresUtilisees= this.heuresUtilisees + heures;
@@ -48,6 +49,10 @@ public class Camion {
 		}
 	}
 	
+	
+	public double getCout(){
+		return this.cout;
+	}
 	
 	public double getCapaUtilisee(){
 		return this.capaciteUtilisee;
@@ -112,4 +117,3 @@ public class Camion {
 	
 
 }
-
