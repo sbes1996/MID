@@ -5,12 +5,14 @@ public class livraisonUsine {
 	private Usine usine;
 	private Prestataire prestExt;
 	private int j;
+	private double cout;
 
 	
 public livraisonUsine(Usine u, Prestataire prest ,int j){
 	this.usine=u;
 	this.prestExt=prest;
 	this.j=j;
+	this.cout=0;
 }
 
 
@@ -43,6 +45,7 @@ public void livraisonPrest(Prestataire p, LinkedList<Client> clients, double qua
 		p.prestDelivre(c,usine, c.getMarchandisesPrest(quantite,j),j);
 		quantite=quantite-c.getMarchandisesPrest(quantite,j);
 	}
+	this.cout= this.cout + p.getCout();
 	}
 	
 
@@ -71,6 +74,7 @@ public void livraisonCam(Camion c, LinkedList<Client> clients){
 		clientProche=lePlusProche(c, clients);
 	}
 	c.retourUsine();
+	this.cout=this.cout+c.getCout();
 }
 
 
@@ -116,6 +120,10 @@ public void livraisonprodUsine(){
 			
 			
 	}
+
+public double getCout(){
+	return this.cout;
+}
 
 
 }
